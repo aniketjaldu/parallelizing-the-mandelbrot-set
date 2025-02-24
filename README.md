@@ -68,7 +68,7 @@ double* times = (double*)malloc(threads*sizeof(double));
 
 #### Grid Iteration
 - The outer loop iterates over rows indexed by `i` (representing the imaginary part), and the inner loop iterates over the columns indexed by `j` (representing the real part).
-- For each point in the complex plane, it computes the corresponding c value from `x0` and `y0`, which are derived from `xStart`, `xEnd`, `yStart`, and `yEnd`.
+- For each point in the complex plane, it computes the corresponding $c$ value from `x0` and `y0`, which are derived from `xStart`, `xEnd`, `yStart`, and `yEnd`.
 
 #### Mandelbrot Iteration
 - The initialization of `x` and `y` to 0 corresponds to the iteration with z0=0.
@@ -88,7 +88,7 @@ double* times = (double*)malloc(threads*sizeof(double));
     <img src="images/Figure1.png" width="45%">
     <img src="images/Figure2.png" width="45%">
 </p>
-Figures 1 and 2. Non-Dynamic vs Dynamic Scheduling
+<p align="center">Figures 1 and 2. Non-Dynamic vs Dynamic Scheduling</p>
 
 The integration of MPI and OpenMP provides an efficient and effective solution for parallelizing the Mandelbrot set. MPI excels in managing communication between nodes and coordinating the distribution of workloads, ensuring that tasks are allocated appropriately across the system. In contrast, OpenMP enhances performance within each node by leveraging its multiple threads to execute computations concurrently. This complementary use of MPI for node to node communication and OpenMP for thread parallelism enables efficient handling of large workloads while significantly reducing execution time.
 
@@ -100,37 +100,49 @@ As previously mentioned, load imbalance becomes a problem when parallelizing. Lo
 - In the context of the Mandelbrot set, the initial idea was to evenly distribute the work between each worker.
  - The aim was to create a balanced workload, however, this leads to that load imbalance problem, as more often than not, some chunks do end up containing more complex points to compute than the others.
 
-![Figure 3](images/Figure3.png)
-Figure 3. Time Spent by Each Worker
+<p align="center">
+    <img src="images/Figure3.png" width="50%">
+</p>
+<p align="center">Figure 3. Time Spent by Each Worker</p>
 
 ### Testing Chunk Sizes
 To properly address this problem, determining the impact of chunk sizes on performance is important. Therefore, the Mandelbrot set is computed on varying chunk sizes. The execution times for each chunk size are then recorded and graphed to reveal the overall performance, as seen in Figure 4.
 
-![Figure 4](images/Figure4.png)
-Figure 4. Chunk Size Time Comparison
+<p align="center">
+    <img src="images/Figure4.png" width="50%">
+</p>
+<p align="center">Figure 4. Chunk Size Time Comparison</p>
 
 From this initial testing, the two lowest execution times were at chunk sizes of 40 and 400. For a more optimal chunk size, 200, a random number between the two, was selected. This resulted in Figure 5 that provides the extra result. 
 
-![Figure 5](images/Figure5.png)
-Figure 5. Optimal Chunk Size Time
+<p align="center">
+    <img src="images/Figure5.png" width="50%">
+</p>
+<p align="center">Figure 5. Optimal Chunk Size Time</p>
 
 ### Load Balance
 After determining the optimal chunk size through the testing process, the next step is to use the size to assess the load balance. By timing the execution with the selected chunk size, Figure 6 is created to illustrate the load balance achieved over the workers.
 
-![Figure 6](images/Figure6.png)
-Figure 6. Time Spent by Each Worker with Optimal Chunk
+<p align="center">
+    <img src="images/Figure6.png" width="50%">
+</p>
+<p align="center">Figure 6. Time Spent by Each Worker with Optimal Chunk</p>
 
 ### Benefits of Parallelization
 The increase in workers leads to a significant reduction in execution time, demonstrating the benefits of MPI, in particular, and parallelization in enhancing performance and efficiency. By distributing workload through the master-worker paradigm, tasks can be processed simultaneously, maximizing resource usage and minimizing wait time. This approach not only accelerates computation, but also shows the scalability of parallelizing, as adding more workers continues to improve overall performance, even if there is an increase in workload.
 
-![Figure 7](images/Figure7.png)
-Figure 7. Time for More Workers
+<p align="center">
+    <img src="images/Figure7.png" width="50%">
+</p>
+<p align="center">Figure 7. Time for More Workers</p>
 
 ### The Mandelbrot Set
 After parallelization, the results showcasing the actual Mandelbrot set can be obtained. The generated image illustrates the intricate patterns that result from the iterative process. The visualization also reveals the reason why the Mandelbrot set is known for its aesthetic appeal and fractal structure, serving as an example of the intersection between math and art.
 
-![Figure 8](images/Figure8.png)
-Figure 8. Mandelbrot Set Visual
+<p align="center">
+    <img src="images/Figure8.png" width="50%">
+</p>
+<p align="center">Figure 8. Mandelbrot Set Visual</p>
 
 # Conclusion
 Parallelizing the computation of the Mandelbrot set allows for the improvement of performance and efficiency. By leveraging different paradigms, OpenMP and MPI, allowed for the effective distribution of workload across multiple nodes and threads, reducing execution time, and maximizing the resources available. 
